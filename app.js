@@ -87,39 +87,37 @@ var editTask = function () {
     //label becomes the inputs value.
     label.innerText = editInput.value;
     editBtn.innerText = "Edit";
-    editInput.classList.add("none-text");
-    editInput.classList.remove("input-edit");
-    label.classList.remove("none-label");
+    editInput.classList.remove("input-text");
   } else {
     editInput.value = label.innerText;
     editBtn.innerText = "Save";
-    editInput.classList.remove("none-text");
-    editInput.classList.add("input-edit");
-    label.classList.add("none-label");
+    editInput.classList.add("input-text");
   }
+  editInput.classList.toggle("none-text");
+  editInput.classList.toggle("input-edit");
+  label.classList.toggle("none-label");
 
   //toggle .editmode on the parent.
   listItem.classList.toggle("edit-mode");
 };
-
 //Delete task.
 var deleteTask = function () {
   console.log("Delete Task...");
-
   var listItem = this.parentNode;
   var ul = listItem.parentNode;
   //Remove the parent list item from the ul.
   ul.removeChild(listItem);
 };
-
 //Mark task completed
 var taskCompleted = function () {
   console.log("Complete Task...");
 
   //Append the task list item to the #completed-tasks
   var listItem = this.parentNode;
+
   completedTasksHolder.appendChild(listItem);
   bindTaskEvents(listItem, taskIncomplete);
+  listItem.querySelector("label").classList.add("task-done");
 };
 
 var taskIncomplete = function () {
@@ -130,8 +128,8 @@ var taskIncomplete = function () {
   var listItem = this.parentNode;
   incompleteTaskHolder.appendChild(listItem);
   bindTaskEvents(listItem, taskCompleted);
+  listItem.querySelector("label").classList.remove("task-done");
 };
-
 var ajaxRequest = function () {
   console.log("AJAX Request");
 };
