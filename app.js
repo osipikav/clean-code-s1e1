@@ -9,12 +9,13 @@
 
 var taskInput = document.getElementById("new-task"); //Add a new task.
 var addButton = document.getElementsByTagName("button")[0]; //first button
-var incompleteTaskHolder = document.getElementById("incompleteTasks"); //ul of #incompleteTasks
+var incompleteTaskHolder = document.getElementById("incomplete-tasks"); //ul of #incompleteTasks
 var completedTasksHolder = document.getElementById("completed-tasks"); //completed-tasks
 
 //New task list item
 var createNewTaskElement = function (taskString) {
   var listItem = document.createElement("li");
+  listItem.className = "li";
 
   //input (checkbox)
   var checkBox = document.createElement("input"); //checkbx
@@ -30,18 +31,20 @@ var createNewTaskElement = function (taskString) {
   var deleteButtonImg = document.createElement("img"); //delete button image
 
   label.innerText = taskString;
-  label.className = "task";
+  label.className = "task task-label";
 
   //Each elements, needs appending
   checkBox.type = "checkbox";
+  checkBox.className = "checkbox-input";
   editInput.type = "text";
-  editInput.className = "task";
+  editInput.className = "task input-text none-text";
 
   editButton.innerText = "Edit"; //innerText encodes special characters, HTML does not.
-  editButton.className = "edit";
+  editButton.className = "edit button";
 
-  deleteButton.className = "delete";
+  deleteButton.className = "delete button";
   deleteButtonImg.src = "./remove.svg";
+  deleteButtonImg.className = "remove-img";
   deleteButton.appendChild(deleteButtonImg);
 
   //and appending.
@@ -73,24 +76,30 @@ var editTask = function () {
   console.log("Change 'edit' to 'save'");
 
   var listItem = this.parentNode;
-
   var editInput = listItem.querySelector("input[type=text]");
   var label = listItem.querySelector("label");
   var editBtn = listItem.querySelector(".edit");
-  var containsClass = listItem.classList.contains("editMode");
+  var containsClass = listItem.classList.contains("edit-mode");
+
   //If class of the parent is .editmode
   if (containsClass) {
     //switch to .editmode
     //label becomes the inputs value.
     label.innerText = editInput.value;
     editBtn.innerText = "Edit";
+    editInput.classList.add("none-text");
+    editInput.classList.remove("input-edit");
+    label.classList.remove("none-label");
   } else {
     editInput.value = label.innerText;
     editBtn.innerText = "Save";
+    editInput.classList.remove("none-text");
+    editInput.classList.add("input-edit");
+    label.classList.add("none-label");
   }
 
   //toggle .editmode on the parent.
-  listItem.classList.toggle("editMode");
+  listItem.classList.toggle("edit-mode");
 };
 
 //Delete task.
@@ -166,4 +175,4 @@ for (var i = 0; i < completedTasksHolder.children.length; i++) {
 
 //prevent creation of empty tasks.
 
-//Change edit to save when you are in edit mode.
+//Change edit to save when you are i
