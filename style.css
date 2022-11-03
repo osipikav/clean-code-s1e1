@@ -42,7 +42,8 @@
 .task-item, .list-title {
   list-style:none;
 }
-.input, .button{
+.input,
+.button{
   outline: none;
 }
 .button {
